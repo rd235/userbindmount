@@ -1,0 +1,4 @@
+$ autoreconf -if
+$ ./configure
+$ make
+$ sudo make install
