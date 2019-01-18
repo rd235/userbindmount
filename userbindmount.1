@@ -19,6 +19,8 @@ The command line arguments are a list of \fIsource\fR-\fItarget\fR pairs (one fo
 bind-mount operation). 
 A new namespace is created if requested by the specific option (-n or
 --newns) or if there is -- as an option in the command line.
+If \fIsource\fR is a double quoted string, the value of the string will be the content
+of the file mounted on \fItarget\fR.
 The trailing -- followed by a command and its argument define the command
 to run in the new namespace. ($SHELL is launched if the command is omitted)
 
@@ -101,6 +103,18 @@ nameserver 9.9.9.9
 $ exit
 .fi
 .RE
+
+.sp
+It is possible to set the contents of a mounted file directly in the command line:
+.RS
+.nf
+$ userbindmount $'"nameserver 9.9.9.9\n"' /etc/resolv.conf -- bash
+$ cat /etc/resolv.conf
+nameserver 9.9.9.9
+$ exit
+.fi
+.RE
+
 
 Please note that the following command:
 .RS

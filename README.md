@@ -149,7 +149,7 @@ nameserver 9.9.9.9
 $ exit
 $
 ```
-Alternative equvalent commands for ```userbindmount -s -- bash``` are ```userbindmount -sn``` or ```userbindmount -s --```.
+Alternative equivalent commands for ```userbindmount -s -- bash``` are ```userbindmount -sn``` or ```userbindmount -s --```.
 
 
 ```

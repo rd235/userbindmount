@@ -54,8 +54,15 @@ void userbindmount_mount(const char *source, const char *target) {
 	int retval;
 	if (*source == 0 || strcmp(source, "-") == 0)
 		retval = userbindmount_fd(0, target, 0600);
-	else
-		retval = mount(source, target, "", MS_BIND, NULL);
+	else {
+		int len = strlen(source);
+		if (source[0] == '"' && len > 1 && source[len - 1] == '"') {
+			char string[len];
+			snprintf(string, len, "%*.*s", len - 2, len - 2, source + 1);
+			retval = userbindmount_string(string, target, 0600);
+		} else
+			retval = mount(source, target, "", MS_BIND, NULL);
+	}
 	if (retval < 0)
 		errExit("mount");
 }
