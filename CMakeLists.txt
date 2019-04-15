@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 project("userbindmount")
 
+include(GNUInstallDirs)
+
 add_definitions(-D_GNU_SOURCE)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -17,15 +19,15 @@ set_target_properties(libuserbindmount PROPERTIES
 		VERSION "0.0.0"
     SOVERSION "0")
 
-install(TARGETS libuserbindmount LIBRARY DESTINATION lib)
-install(FILES userbindmount.h DESTINATION include)
+install(TARGETS libuserbindmount LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES userbindmount.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES libuserbindmount.3
     DESTINATION ${CMAKE_INSTALL_MANDIR}/man3)
 
 add_executable(userbindmount userbindmount.c)
 target_link_libraries(userbindmount libuserbindmount cap)
 
-install(TARGETS userbindmount RUNTIME DESTINATION bin)
+install(TARGETS userbindmount RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES userbindmount.1
     DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
