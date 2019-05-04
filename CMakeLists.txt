@@ -13,21 +13,29 @@ endif()
 
 add_library(libuserbindmount SHARED libuserbindmount.c)
 target_link_libraries(libuserbindmount cap)
-
 set_target_properties(libuserbindmount PROPERTIES
 		OUTPUT_NAME "userbindmount"
 		VERSION "0.0.0"
     SOVERSION "0")
 
-install(TARGETS libuserbindmount LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES userbindmount.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+add_library(libuserbindmount-static STATIC libuserbindmount.c)
+set_target_properties(libuserbindmount-static
+		PROPERTIES OUTPUT_NAME userbindmount)
+
+install(TARGETS libuserbindmount
+		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS libuserbindmount-static
+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES userbindmount.h
+		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(FILES libuserbindmount.3
     DESTINATION ${CMAKE_INSTALL_MANDIR}/man3)
 
 add_executable(userbindmount userbindmount.c)
 target_link_libraries(userbindmount libuserbindmount cap)
 
-install(TARGETS userbindmount RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS userbindmount
+		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES userbindmount.1
     DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
