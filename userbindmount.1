@@ -108,7 +108,7 @@ $ exit
 It is possible to set the contents of a mounted file directly in the command line:
 .RS
 .nf
-$ userbindmount $'"nameserver 9.9.9.9\n"' /etc/resolv.conf -- bash
+$ userbindmount $'"nameserver 9.9.9.9\\n"' /etc/resolv.conf -- bash
 $ cat /etc/resolv.conf
 nameserver 9.9.9.9
 $ exit
