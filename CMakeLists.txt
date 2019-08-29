@@ -27,12 +27,16 @@ add_library(libuserbindmount-static STATIC libuserbindmount.c)
 set_target_properties(libuserbindmount-static
 		PROPERTIES OUTPUT_NAME userbindmount)
 
+configure_file(userbindmount.pc.in userbindmount.pc @ONLY)
+
 install(TARGETS libuserbindmount
 		LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS libuserbindmount-static
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES userbindmount.h
 		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/userbindmount.pc
+		DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 add_executable(userbindmount userbindmount.c)
 target_link_libraries(userbindmount libuserbindmount cap)
