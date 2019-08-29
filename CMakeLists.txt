@@ -33,14 +33,11 @@ install(TARGETS libuserbindmount-static
 		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES userbindmount.h
 		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES libuserbindmount.3
-    DESTINATION ${CMAKE_INSTALL_MANDIR}/man3)
 
 add_executable(userbindmount userbindmount.c)
 target_link_libraries(userbindmount libuserbindmount cap)
 
 install(TARGETS userbindmount
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(FILES userbindmount.1
-    DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
+add_subdirectory(man)
