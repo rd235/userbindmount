@@ -33,7 +33,10 @@ int sysadmin_flag = 0;
 int verbose_flag = 0;
 int newnamespace_flag = 0;
 
-#define errExit(msg)    ({ perror(msg); exit(EXIT_FAILURE); })
+#define errExit(msg)    do {\
+	perror(msg); \
+	exit(EXIT_FAILURE); \
+} while(0);
 
 void usage_n_exit(void) {
 	fprintf(stderr, 
