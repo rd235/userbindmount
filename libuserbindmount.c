@@ -80,7 +80,8 @@ int userbindmount_unshare(void) {
 	switch (child_pid = fork()) {
 		case 0:
 			close(pipe_fd[1]);
-			read(pipe_fd[0], &buf, sizeof(buf));
+			if (read(pipe_fd[0], &buf, sizeof(buf)) < 0)
+				exit(1);
 			uid_gid_map(getppid());
 			exit(0);
 		default:
@@ -117,12 +118,14 @@ static int __common_userbindmount_tmp(int fd_in, const void *data, size_t count,
 	if (fd_in >= 0) {
 		char buf[BUFSIZE];
 		while ((retval = read(fd_in, buf, BUFSIZE)) > 0)
-			write(fd, buf, retval);
+			if (write(fd, buf, retval) < 0)
+				break;
 	} else 
-		write(fd, data, count);
+		retval = write(fd, data, count);
 	fchmod(fd, mode);
 	close(fd);
-	retval = userbindmount(tmpname, target);
+	if (retval >= 0)
+		retval = userbindmount(tmpname, target);
 	unlink(tmpname);
 	return retval;
 }
