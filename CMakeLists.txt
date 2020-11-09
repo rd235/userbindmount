@@ -45,3 +45,6 @@ install(TARGETS userbindmount
 		RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_subdirectory(man)
+
+add_custom_target(uninstall
+  "${CMAKE_COMMAND}" -P "${PROJECT_SOURCE_DIR}/Uninstall.cmake")
